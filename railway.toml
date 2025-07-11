@@ -2,10 +2,10 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "python initialize_rag.py && gunicorn src.main:app --bind 0.0.0.0:$PORT"
+startCommand = "python initialize_rag.py && gunicorn src.main:app --bind 0.0.0.0:$PORT --timeout 120"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 
 [build.nixpacks]
-aptPackages = ["python3-dev", "gcc"]
+aptPackages = ["python3-dev"]
 
