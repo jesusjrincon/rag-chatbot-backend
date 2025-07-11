@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG ChatBot - Psicología y Ciencias Mentales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <h1>RAG ChatBot</h1>
+                </div>
+                <div class="header-info">
+                    <span class="status-indicator" id="statusIndicator">
+                        <i class="fas fa-circle"></i>
+                        <span id="statusText">Conectando...</span>
+                    </span>
+                    <button class="stats-btn" id="statsBtn">
+                        <i class="fas fa-chart-bar"></i>
+                        Estadísticas
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section" id="welcomeSection">
+                <div class="welcome-content">
+                    <div class="welcome-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2>Bienvenido al ChatBot de Psicología</h2>
+                    <p>Explora la literatura científica en psicología y ciencias mentales a través de conversación natural. Pregunta sobre estudios, conceptos, metodologías y más.</p>
+                    
+                    <div class="example-questions">
+                        <h3>Preguntas de ejemplo:</h3>
+                        <div class="question-cards">
+                            <button class="question-card" data-question="¿Qué es la psicología positiva y cómo mejora el bienestar?">
+                                <i class="fas fa-smile"></i>
+                                <span>¿Qué es la psicología positiva?</span>
+                            </button>
+                            <button class="question-card" data-question="¿Cómo funciona la teoría de carga cognitiva en el aprendizaje digital?">
+                                <i class="fas fa-brain"></i>
+                                <span>Teoría de carga cognitiva</span>
+                            </button>
+                            <button class="question-card" data-question="¿Cuáles son los mecanismos neurales de la empatía?">
+                                <i class="fas fa-heart"></i>
+                                <span>Neurociencia de la empatía</span>
+                            </button>
+                            <button class="question-card" data-question="¿Qué estudios hay sobre mindfulness y salud mental?">
+                                <i class="fas fa-leaf"></i>
+                                <span>Mindfulness y salud mental</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Container -->
+            <div class="chat-container" id="chatContainer">
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Los mensajes se agregarán dinámicamente aquí -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Escribe tu pregunta sobre psicología, neurociencia, bienestar..."
+                        rows="1"
+                    ></textarea>
+                    <button id="sendButton" class="send-button" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="input-hint">Presiona Enter para enviar, Shift+Enter para nueva línea</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Procesando tu consulta...</p>
+            </div>
+        </div>
+
+        <!-- Stats Modal -->
+        <div class="modal-overlay" id="statsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Estadísticas de la Base de Datos</h3>
+                    <button class="modal-close" id="closeStatsModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="statsContent">
+                    <!-- Contenido de estadísticas se cargará aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: rag-chatbot-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt && python initialize_rag.py"
+    startCommand: "gunicorn src.main:app --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    disk:
+      name: rag-data
+      mountPath: /opt/render/project/src/chroma_db
+      sizeGB: 1
+
