@@ -1,59 +1,60 @@
 #!/usr/bin/env python3
 """
-Script para inicializar la base de datos vectorial RAG
+Script para inicializar el sistema RAG simplificado
 """
+
 import sys
 import os
 
-# Agregar el directorio raíz al path
-sys.path.insert(0, os.path.dirname(__file__))
+# Agregar el directorio src al path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
-from src.models.rag_system import RAGSystem
+from models.simple_rag import SimpleRAGSystem
 
 def main():
-    print("Inicializando sistema RAG...")
-    
+    """Función principal para inicializar el sistema RAG"""
     try:
+        print("=== Inicializando Sistema RAG Simplificado ===")
+        
         # Crear instancia del sistema RAG
-        rag = RAGSystem()
+        rag_system = SimpleRAGSystem()
         
-        # Cargar y procesar datos
-        print("Cargando y procesando datos del JSON...")
-        rag.load_and_process_data()
+        # Inicializar el sistema
+        rag_system.initialize()
         
-        # Obtener estadísticas
-        stats = rag.get_stats()
-        print(f"\nEstadísticas de la base de datos:")
-        print(f"- Total de documentos: {stats['total_documents']}")
-        print(f"- Papers académicos: {stats['papers']}")
-        print(f"- Documentos de síntesis: {stats['synthesis']}")
-        print(f"- Clusters conceptuales: {stats['clusters']}")
-        print(f"- Indicadores de innovación: {stats['innovations']}")
-        
-        # Prueba de búsqueda
-        print(f"\nPrueba de búsqueda:")
-        test_query = "psicología positiva y bienestar"
-        results = rag.search(test_query, n_results=3)
-        
-        print(f"Consulta: '{test_query}'")
-        print(f"Resultados encontrados: {len(results)}")
-        
-        for i, result in enumerate(results, 1):
-            print(f"\n{i}. {result['metadata'].get('title', 'Sin título')}")
-            print(f"   Similitud: {result['similarity']:.3f}")
-            print(f"   Tipo: {result['metadata'].get('type', 'desconocido')}")
-            if result['metadata'].get('type') == 'paper':
-                print(f"   Autores: {result['metadata'].get('authors', 'N/A')}")
-                print(f"   Año: {result['metadata'].get('year', 'N/A')}")
-        
-        print(f"\n✅ Sistema RAG inicializado correctamente!")
-        
+        # Verificar que funciona
+        if rag_system.system_ready:
+            stats = rag_system.get_stats()
+            print(f"\n✅ Sistema inicializado exitosamente!")
+            print(f"📊 Estadísticas:")
+            print(f"   - Total de documentos: {stats['total_documents']}")
+            print(f"   - Papers académicos: {stats['papers']}")
+            print(f"   - Documentos de síntesis: {stats['synthesis']}")
+            print(f"   - Clusters conceptuales: {stats['clusters']}")
+            print(f"   - Indicadores de innovación: {stats['innovations']}")
+            
+            # Prueba rápida
+            print(f"\n🧪 Realizando prueba de búsqueda...")
+            test_results = rag_system.search("psicología positiva", n_results=3)
+            print(f"   - Encontrados {len(test_results)} resultados para 'psicología positiva'")
+            
+            if test_results:
+                print(f"   - Resultado principal: {test_results[0]['title']}")
+                print(f"   - Similitud: {test_results[0]['similarity']:.3f}")
+            
+            print(f"\n🚀 Sistema listo para usar!")
+            return True
+        else:
+            print("❌ Error: Sistema no se pudo inicializar correctamente")
+            return False
+            
     except Exception as e:
-        print(f"❌ Error al inicializar sistema RAG: {str(e)}")
-        return 1
-    
-    return 0
+        print(f"❌ Error durante la inicialización: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 if __name__ == "__main__":
-    exit(main())
+    success = main()
+    sys.exit(0 if success else 1)
 
